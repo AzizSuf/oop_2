@@ -1,0 +1,90 @@
+﻿<Window x:Class="MatrixMultiplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MatrixMultiplication"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000">
+    <Border Padding="10">
+        <StackPanel>
+            <Grid Margin="0 0 0 0">
+                <!--<DataGrid x:Name="matrix1DataGrid"  Margin="31,20,719,514" HeadersVisibility="None" ScrollViewer.CanContentScroll="True"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"/>
+            <DataGrid x:Name="matrix2DataGrid" Margin="318,20,432,514" HeadersVisibility="None" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" ScrollViewer.CanContentScroll="True"  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanUserAddRows="False" CanUserResizeRows="False" CanUserDeleteRows="False"/>
+            <DataGrid x:Name="resultDataGrid" Margin="718,20,32,514" HeadersVisibility="None" Grid.Column="0" Grid.Row="0" ScrollViewer.CanContentScroll="True"  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False"/>
+            <Label Content="Rows:" HorizontalAlignment="Left" Margin="36,279,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <TextBox x:Name="rowsMatrix1TextBox" HorizontalAlignment="Left" Margin="113,281,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18"/>
+            <Label Content="Cols:" HorizontalAlignment="Left" Margin="36,335,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <TextBox x:Name="colsMatrix1TextBox" HorizontalAlignment="Left" Margin="113,337,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18"/>
+            <Label Content="Rows:" HorizontalAlignment="Left" Margin="324,281,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <TextBox x:Name="rowsMatrix2TextBox" HorizontalAlignment="Left" Margin="401,283,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18"/>
+            <Label Content="Cols:" HorizontalAlignment="Left" Margin="324,337,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <TextBox x:Name="colsMatrix2TextBox" HorizontalAlignment="Left" Margin="401,339,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18"/>
+            <Button Content="Multyplly" HorizontalAlignment="Left" Margin="778,281,0,0" VerticalAlignment="Top" FontSize="18" Width="130"/>
+            <Button x:Name="createMatrix1Button" Content="Create" HorizontalAlignment="Left" Margin="81,392,0,0" VerticalAlignment="Top" FontSize="18" Width="111" Click="createMatrix1Button_Click"/>
+            <Button x:Name="createMatrix2Button" Content="Create" HorizontalAlignment="Left" Margin="368,392,0,0" VerticalAlignment="Top" FontSize="18" Width="111"/>
+            <Button x:Name="randomMatrix1Button" Content="Random" HorizontalAlignment="Left" Margin="81,443,0,0" VerticalAlignment="Top" FontSize="18" Width="111" Click="randomMatrix1Button_Click"/>
+            <Button x:Name="randomMatrix2Button" Content="Random" HorizontalAlignment="Left" Margin="368,443,0,0" VerticalAlignment="Top" FontSize="18" Width="111"/>-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <DataGrid x:Name="matrix1DataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="0" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False"></DataGrid>
+                <DataGrid x:Name="matrix2DataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="1" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False"></DataGrid>
+                <DataGrid x:Name="resultDataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="2" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False"></DataGrid>
+
+                <Grid Grid.Row="1" Grid.Column="0" Width="180" Margin="0 20 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Content="Rows:" Grid.Row="0" Grid.Column="0" FontSize="20"/>
+                    <TextBox x:Name="rowsMatrix1TextBox" Text="" Grid.Row="0" Grid.Column="1" FontSize="20"/>
+                    <Label Content="Cols:" Grid.Row="1" Grid.Column="0" FontSize="20"/>
+                    <TextBox x:Name="colsMatrix1TextBox" Text="" Grid.Row="1" Grid.Column="1" FontSize="20"/>
+
+                    <Button x:Name="createMatrix1Button" Content="Create" Margin="0 20 0 0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" Click="createMatrix1Button_Click"/>
+                    <Button x:Name="randomMatrix1Button" Content="Random" Margin="0 5 0 0" Grid.Row="3" Grid.ColumnSpan="2" FontSize="20" Click="randomMatrix1Button_Click"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="1" Width="180" Margin="0 20 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Rows:" Grid.Row="0" Grid.Column="0" FontSize="20"/>
+                    <TextBox x:Name="rowsMatrix2TextBox" Text="" Grid.Row="0" Grid.Column="1" FontSize="20"/>
+                    <Label Content="Cols:" Grid.Row="1" Grid.Column="0" FontSize="20"/>
+                    <TextBox x:Name="colsMatrix2TextBox" Text="" Grid.Row="1" Grid.Column="1" FontSize="20"/>
+
+                    <Button x:Name="createMatrix2Button" Content="Create" Margin="0 20 0 0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" Click="createMatrix2Button_Click"/>
+                    <Button x:Name="randomMatrix2Button" Content="Random" Margin="0 5 0 0" Grid.Row="3" Grid.ColumnSpan="2" FontSize="20" Click="randomMatrix2Button_Click"/>
+                </Grid>
+
+                <Button x:Name="multiplyButton" Content="Multiply" Grid.Row="1" Grid.Column="3" Width="200" Height="50" FontSize="20" Click="multiplyButton_Click"/>
+
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>
