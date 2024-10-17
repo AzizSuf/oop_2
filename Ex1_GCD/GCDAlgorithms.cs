@@ -10,6 +10,9 @@ namespace Ex1_GCD
     {
         public static int FindGCDEuclid(int a, int b)
         {
+#if flse
+            // Не работает для отрицательных чисел!!
+            // РАБОТАЕТ медленнее ШТЕЙНА!!
             if (a == 0) return b;
             while (b != 0)
             {
@@ -23,6 +26,16 @@ namespace Ex1_GCD
                 }
             }
             return a;
+#else
+            // Этот вариант алгоритма работает быстрее
+            while (b != 0)
+            {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+#endif
         }
 
         public static int FindGCDEuclid(int a, int b, int c)

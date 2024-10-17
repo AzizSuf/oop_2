@@ -25,6 +25,7 @@ namespace Ex1_GCD
     public partial class MainWindow : Window
     {
         delegate int GCDMethod(int a, int b);
+        
         Stopwatch stopWatch;
 
         public MainWindow()
@@ -40,6 +41,13 @@ namespace Ex1_GCD
 
         private float TestTimeExecution(int a, int b, GCDMethod method, int numberExecutions = 100)
         {
+            // Перед замером скорости вызываем метод, чтобы JIT его скомпилировал
+            //var _ = method(a, b);
+
+            // Вызов метода через делегат возможно медленнее чем простой вызовов
+            // Но т.к абсолютное значение скорости нас не сильно интересует,
+            // а нас интересует сравнение скрости алгоритмов относительно друг друга,
+            // поэтому можем принебреч накладными расходами на вызов делегата в угоду удобства.
             stopWatch.Restart();
             for (int i = 0; i < numberExecutions; i++)
             {
@@ -47,7 +55,7 @@ namespace Ex1_GCD
             }
             stopWatch.Stop();
 
-            float elapsedTicks = stopWatch.ElapsedTicks / (float)numberExecutions;
+            float elapsedTicks = (float)stopWatch.ElapsedTicks / (float)numberExecutions;
 
             return elapsedTicks;
         }

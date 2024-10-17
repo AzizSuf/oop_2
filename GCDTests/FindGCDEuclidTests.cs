@@ -22,6 +22,14 @@ namespace GCDTests
         }
 
         [TestMethod]
+        public void FindGCDEuclid_With4Parameters_neg14_8_Test()
+        {
+            int result = GCDAlgorithms.FindGCDEuclid(-14, 8);
+            int expected = 2;
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
         public void FindGCDEuclid_With3Parameters_25_125_625_Test()
         {
             int result = GCDAlgorithms.FindGCDEuclid(25, 125, 625);
@@ -42,6 +50,14 @@ namespace GCDTests
         {
             int result = GCDAlgorithms.FindGCDEuclid(45, 12, 78, 45);
             int expected = 3;
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void FindGCDEuclid_With4Parameters_BigNums_Test()
+        {
+            int result = GCDAlgorithms.FindGCDEuclid(1073741824, 1073741800);
+            int expected = 8;
             Assert.AreEqual(expected, result);
         }
     }
