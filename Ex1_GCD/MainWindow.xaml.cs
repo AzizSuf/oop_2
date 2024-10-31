@@ -2,6 +2,7 @@
 // Задание 2. Вычислить наибольший общий делитель 3,4,5 чисел
 
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
@@ -14,7 +15,7 @@ namespace Ex1_GCD
     public partial class MainWindow : Window
     {
         delegate int GCDMethod(int a, int b);
-        
+
         Stopwatch stopWatch;
 
         public MainWindow()
@@ -48,35 +49,33 @@ namespace Ex1_GCD
 
         private void RunButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isEntered1 = int.TryParse(number1TextBox.Text, out int num1);
-            bool isEntered2 = int.TryParse(number2TextBox.Text, out int num2);
-            bool isEntered3 = int.TryParse(number3TextBox.Text, out int num3);
-            bool isEntered4 = int.TryParse(number4TextBox.Text, out int num4);
-            bool isEntered5 = int.TryParse(number5TextBox.Text, out int num5);
-
-            gcdEuclidTimeLabel.Content = "UNS"; // Unsupported value
-            gcdSteinResultLabel.Content = "UNS";
-            gcdSteinTimeLabel.Content = "UNS";
-
-            if (isEntered1 && isEntered2 && isEntered3 && isEntered4 && isEntered5)
+            var textValues = new string[] { number1TextBox.Text, number2TextBox.Text, number3TextBox.Text, number4TextBox.Text, number5TextBox.Text };
+            
+            var numbers = new int[textValues.Length];
+            int validCount = 0;
+            foreach (var val in textValues)
             {
-                gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(num1, num2, num3, num4, num5);
+                if (int.TryParse(val, out int num))
+                {
+                    numbers[validCount] = num;
+                    validCount++;
+                }
             }
-            else if (isEntered1 && isEntered2 && isEntered3 && isEntered4)
-            {
-                gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(num1, num2, num3, num4);
-            }
-            else if (isEntered1 && isEntered2 && isEntered3)
-            {
-                gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(num1, num2, num3);
-            }
-            else if (isEntered1 && isEntered2)
-            {
-                gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(num1, num2);
-                gcdEuclidTimeLabel.Content = TestTimeExecution(num1, num2, GCDAlgorithms.FindGCDEuclid);
+            Array.Resize<int>(ref numbers, validCount);
 
-                gcdSteinResultLabel.Content = GCDAlgorithms.FindGCDStein(num1, num2);
-                gcdSteinTimeLabel.Content = TestTimeExecution(num1, num2, GCDAlgorithms.FindGCDStein);
+            if (numbers.Length == 2)
+            {
+                gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(numbers[0], numbers[1]);
+                gcdEuclidTimeLabel.Content = TestTimeExecution(numbers[0], numbers[1], GCDAlgorithms.FindGCDEuclid);
+                gcdSteinResultLabel.Content = GCDAlgorithms.FindGCDStein(numbers[0], numbers[1]);
+                gcdSteinTimeLabel.Content = TestTimeExecution(numbers[0], numbers[1], GCDAlgorithms.FindGCDStein);
+            }
+            else if (numbers.Length > 2)
+            {
+                gcdEuclidTimeLabel.Content = "UNS"; // Unsupported value
+                gcdSteinResultLabel.Content = "UNS";
+                gcdSteinTimeLabel.Content = "UNS";
+                gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(numbers);
             }
             else
             {
