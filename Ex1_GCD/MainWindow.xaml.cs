@@ -30,9 +30,6 @@ namespace Ex1_GCD
 
         private float TestTimeExecution(int a, int b, GCDMethod method, int numberExecutions = 100)
         {
-            // Перед замером скорости вызываем метод, чтобы JIT его скомпилировал
-            //var _ = method(a, b);
-
             // Вызов метода через делегат возможно медленнее чем простой вызовов
             // Но т.к абсолютное значение скорости нас не сильно интересует,
             // а нас интересует сравнение скрости алгоритмов относительно друг друга,
@@ -40,7 +37,7 @@ namespace Ex1_GCD
             stopWatch.Restart();
             for (int i = 0; i < numberExecutions; i++)
             {
-                int result = method(a, b);
+                method(a, b);
             }
             stopWatch.Stop();
 
@@ -49,43 +46,30 @@ namespace Ex1_GCD
             return elapsedTicks;
         }
 
-        private void runButton_Click(object sender, RoutedEventArgs e)
+        private void RunButton_Click(object sender, RoutedEventArgs e)
         {
-            int num1, num2, num3, num4, num5;
+            bool isEntered1 = int.TryParse(number1TextBox.Text, out int num1);
+            bool isEntered2 = int.TryParse(number2TextBox.Text, out int num2);
+            bool isEntered3 = int.TryParse(number3TextBox.Text, out int num3);
+            bool isEntered4 = int.TryParse(number4TextBox.Text, out int num4);
+            bool isEntered5 = int.TryParse(number5TextBox.Text, out int num5);
 
-            bool isEntered1 = int.TryParse(number1TextBox.Text, out num1);
-            bool isEntered2 = int.TryParse(number2TextBox.Text, out num2);
-            bool isEntered3 = int.TryParse(number3TextBox.Text, out num3);
-            bool isEntered4 = int.TryParse(number4TextBox.Text, out num4);
-            bool isEntered5 = int.TryParse(number5TextBox.Text, out num5);
+            gcdEuclidTimeLabel.Content = "UNS"; // Unsupported value
+            gcdSteinResultLabel.Content = "UNS";
+            gcdSteinTimeLabel.Content = "UNS";
 
             if (isEntered1 && isEntered2 && isEntered3 && isEntered4 && isEntered5)
             {
                 gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(num1, num2, num3, num4, num5);
-                gcdEuclidTimeLabel.Content = "UNS";
-
-                gcdSteinResultLabel.Content = "UNS";
-                gcdSteinTimeLabel.Content = "UNS";
             }
-
             else if (isEntered1 && isEntered2 && isEntered3 && isEntered4)
             {
                 gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(num1, num2, num3, num4);
-                gcdEuclidTimeLabel.Content = "UNS";
-
-                gcdSteinResultLabel.Content = "UNS";
-                gcdSteinTimeLabel.Content = "UNS";
             }
-
             else if (isEntered1 && isEntered2 && isEntered3)
             {
                 gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(num1, num2, num3);
-                gcdEuclidTimeLabel.Content = "UNS";
-
-                gcdSteinResultLabel.Content = "UNS";
-                gcdSteinTimeLabel.Content = "UNS";
             }
-
             else if (isEntered1 && isEntered2)
             {
                 gcdEuclidResultLabel.Content = GCDAlgorithms.FindGCDEuclid(num1, num2);
@@ -101,9 +85,9 @@ namespace Ex1_GCD
             }
         }
 
-        private void runListButton_Click(object sender, RoutedEventArgs e)
+        private void RunListButton_Click(object sender, RoutedEventArgs e)
         {
-            string[] strNumbers = numbersListTextBox.Text.Split(new char[] { }, StringSplitOptions.RemoveEmptyEntries);
+            string[] strNumbers = numbersListTextBox.Text.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries);
 
             int[] numbers;
             try

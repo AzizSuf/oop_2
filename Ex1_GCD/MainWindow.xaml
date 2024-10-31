@@ -18,11 +18,11 @@
         <TextBox x:Name="number3TextBox" HorizontalAlignment="Left" Margin="20,91,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18" Grid.ColumnSpan="2"/>
         <TextBox x:Name="number4TextBox" HorizontalAlignment="Left" Margin="20,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18" Grid.ColumnSpan="2"/>
         <TextBox x:Name="number5TextBox" HorizontalAlignment="Left" Margin="20,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18" Grid.ColumnSpan="2"/>
-        <Button x:Name="runButton" Content="Run" HorizontalAlignment="Left" Margin="62,14,0,0" VerticalAlignment="Top" Height="29" Width="99" FontSize="16" Click="runButton_Click" Grid.Column="1"/>
+        <Button x:Name="runButton" Content="Run" HorizontalAlignment="Left" Margin="62,14,0,0" VerticalAlignment="Top" Height="29" Width="99" FontSize="16" Click="RunButton_Click" Grid.Column="1"/>
         <Label Grid.Column="1" Content="Euclid:" HorizontalAlignment="Left" Margin="35,67,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label x:Name="gcdEuclidResultLabel" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="152,67,0,0" VerticalAlignment="Top" FontSize="18"/>
         <TextBox x:Name="numbersListTextBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,237,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="301" Height="64" FontSize="16"/>
-        <Button x:Name="runListButton" Content="Run List" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" Height="29" Width="99" FontSize="16" Click="runListButton_Click"/>
+        <Button x:Name="runListButton" Content="Run List" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" Height="29" Width="99" FontSize="16" Click="RunListButton_Click"/>
         <Label Content="GCD:" HorizontalAlignment="Left" Margin="135,316,0,0" VerticalAlignment="Top" FontSize="18" Grid.ColumnSpan="2"/>
         <Label x:Name="gdcFromListResultLabel" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="62,316,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Grid.Column="1" Content="Stein:" HorizontalAlignment="Left" Margin="35,146,0,0" VerticalAlignment="Top" FontSize="18"/>

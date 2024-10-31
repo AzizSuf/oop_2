@@ -41,7 +41,7 @@ namespace MatrixMultiplication
 
         public static Matrix operator* (Matrix lhs, Matrix rhs)
         {
-            Matrix res = new Matrix(lhs.Rows, rhs.Cols);
+            var res = new Matrix(lhs.Rows, rhs.Cols);
             
             if (lhs.Cols != rhs.Rows)
             {
@@ -81,7 +81,11 @@ namespace MatrixMultiplication
             return false;
         }
 
-        // TODO: реализовать GetHashCode()??
+        // TODO ????
+        //public override int GetHashCode()
+        //{
+        //    return HashCode.Combine(_data);
+        //}
 
         public int this[int i, int j]
         {
