@@ -29,7 +29,7 @@ namespace MatrixTests
                 { 102, 126, 150},
             };
 
-            int[,] actual = Matrix.MatrixMultiply(matrix1, matrix2);
+            int[,] actual = MatrixOp.MatrixMultiply(matrix1, matrix2);
 
             CollectionAssert.AreEqual(expected, actual);  // Assert.AreEqual() Doesn't work!!
         }
@@ -51,7 +51,7 @@ namespace MatrixTests
                 { 7, -8, 9},
             };
 
-            Assert.ThrowsException<ArgumentException>(() => Matrix.MatrixMultiply(matrix1, matrix2));
+            Assert.ThrowsException<ArgumentException>(() => MatrixOp.MatrixMultiply(matrix1, matrix2));
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace MatrixTests
                 { 4, 5, 6},
             };
 
-            Assert.ThrowsException<ArgumentException>(() => Matrix.MatrixMultiply(matrix1, matrix2));
+            Assert.ThrowsException<ArgumentException>(() => MatrixOp.MatrixMultiply(matrix1, matrix2));
         }
     }
 }

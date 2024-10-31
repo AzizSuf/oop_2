@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MatrixMultiplication
 {
@@ -21,32 +10,12 @@ namespace MatrixMultiplication
     /// </summary>
     public partial class MainWindow : Window
     {
-        DataTable dataTable1;
-        DataTable dataTable2;
-        DataTable resultDataTable;
-
-        int[,] matrix1;
-        int[,] matrix2;
-        int[,] result;
+        DataTable? dataTable1;
+        DataTable? dataTable2;
 
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-
-
-        private void CreateDataTable(DataTable dt, int rows, int cols)
-        {
-            dt.Reset();
-            for (int i = 0; i < rows; i++)
-            {
-                dt.Rows.Add();
-            }
-            for (int i = 0; i < cols; i++)
-            {
-                dt.Columns.Add();
-            }
         }
 
         private void RandomFillDataTable(DataTable dt)
@@ -65,22 +34,23 @@ namespace MatrixMultiplication
         private void createMatrix1Button_Click(object sender, RoutedEventArgs e)
         {
             dataTable1 = new DataTable();
-            int rows = 0;
-            int cols = 0;
+            int rows;
+            int cols;
 
             if (!int.TryParse(rowsMatrix1TextBox.Text, out rows) || !int.TryParse(colsMatrix1TextBox.Text, out cols))
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Enter size");
+                return;
             }
 
-            CreateDataTable(dataTable1, rows, cols);
+            DataTableConverter.CreateDataTable(dataTable1, rows, cols);
             matrix1DataGrid.ItemsSource = dataTable1.DefaultView;
-
-            matrix1 = new int[rows, cols];
         }
 
         private void randomMatrix1Button_Click(object sender, RoutedEventArgs e)
         {
+            if (dataTable1 == null) return;
+            
             RandomFillDataTable(dataTable1);
             matrix1DataGrid.ItemsSource = dataTable1.DefaultView;
         }
@@ -88,47 +58,40 @@ namespace MatrixMultiplication
         private void createMatrix2Button_Click(object sender, RoutedEventArgs e)
         {
             dataTable2 = new DataTable();
-            int rows = 0;
-            int cols = 0;
+            int rows;
+            int cols;
 
             if (!int.TryParse(rowsMatrix2TextBox.Text, out rows) || !int.TryParse(colsMatrix2TextBox.Text, out cols))
             {
                 MessageBox.Show("Error");
+                return;
             }
 
-            CreateDataTable(dataTable2, rows, cols);
+            DataTableConverter.CreateDataTable(dataTable2, rows, cols);
             matrix2DataGrid.ItemsSource = dataTable2.DefaultView;
-            matrix2 = new int[rows, cols];
         }
 
         private void randomMatrix2Button_Click(object sender, RoutedEventArgs e)
         {
+            if (dataTable2 == null) return;
+
             RandomFillDataTable(dataTable2);
             matrix2DataGrid.ItemsSource = dataTable2.DefaultView;
         }
 
         private void multiplyButton_Click(object sender, RoutedEventArgs e)
         {
+            if (dataTable1 == null || dataTable2 == null) return;
 
-            for (int i = 0; i < matrix1.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix1.GetLength(1); j++)
-                {
-                    matrix1[i, j] = Convert.ToInt32(dataTable1.Rows[i][j]);
-                }
-            }
+            // магия LINQ))
+            Matrix matrix1 = new Matrix(dataTable1.Rows.Count, dataTable1.Columns.Count, dataTable1.AsEnumerable().SelectMany(p => p.ItemArray));
 
-            for (int i = 0; i < matrix2.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix2.GetLength(1); j++)
-                {
-                    matrix2[i, j] = Convert.ToInt32(dataTable2.Rows[i][j]);
-                }
-            }
+            Matrix matrix2 = DataTableConverter.ToMatrix(dataTable2);
 
+            Matrix result;
             try
             {
-                result = Matrix.MatrixMultiply(matrix1, matrix2);
+                result = matrix1 * matrix2;
             }
             catch (ArgumentException ex)
             {
@@ -136,16 +99,7 @@ namespace MatrixMultiplication
                 return;
             }
 
-            resultDataTable = new DataTable();
-            CreateDataTable(resultDataTable, result.GetLength(0), result.GetLength(1));
-            
-            for (int i = 0; i < result.GetLength(0); i++)
-            {
-                for (int j = 0; j < result.GetLength(1); j++)
-                {
-                    resultDataTable.Rows[i][j] = result[i, j];
-                }
-            }
+            DataTable resultDataTable = DataTableConverter.FromMatrix(result);
 
             resultDataGrid.ItemsSource = resultDataTable.DefaultView;
         }

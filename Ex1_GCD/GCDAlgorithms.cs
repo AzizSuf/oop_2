@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#define USE_FAST_EUCLID
+
+using System;
 
 namespace Ex1_GCD
 {
@@ -10,9 +8,19 @@ namespace Ex1_GCD
     {
         public static int FindGCDEuclid(int a, int b)
         {
-#if flse
-            // Не работает для отрицательных чисел!!
-            // РАБОТАЕТ медленнее ШТЕЙНА!!
+            // Может быть OverflowException!!
+            a = Math.Abs(a);
+            b = Math.Abs(b);
+
+#if USE_FAST_EUCLID
+            while (b != 0)
+            {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+#else
             if (a == 0) return b;
             while (b != 0)
             {
@@ -24,15 +32,6 @@ namespace Ex1_GCD
                 {
                     b -= a;
                 }
-            }
-            return a;
-#else
-            // Этот вариант алгоритма работает быстрее
-            while (b != 0)
-            {
-                int temp = b;
-                b = a % b;
-                a = temp;
             }
             return a;
 #endif

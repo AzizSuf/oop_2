@@ -36,9 +36,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <DataGrid x:Name="matrix1DataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="0" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False"></DataGrid>
-                <DataGrid x:Name="matrix2DataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="1" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False"></DataGrid>
-                <DataGrid x:Name="resultDataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="2" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False"></DataGrid>
+                <DataGrid x:Name="matrix1DataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="0" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False" ScrollViewer.CanContentScroll="True"></DataGrid>
+                <DataGrid x:Name="matrix2DataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="1" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False" ScrollViewer.CanContentScroll="True"></DataGrid>
+                <DataGrid x:Name="resultDataGrid" MinColumnWidth="50" ColumnWidth="*" Grid.Row="0" Grid.Column="2" Width="250" Height="250" HeadersVisibility="None" CanUserAddRows="False" CanUserReorderColumns="False" ScrollViewer.CanContentScroll="True"></DataGrid>
 
                 <Grid Grid.Row="1" Grid.Column="0" Width="180" Margin="0 20 0 0">
                     <Grid.RowDefinitions>

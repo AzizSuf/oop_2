@@ -1,43 +1,97 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace MatrixMultiplication
 {
     public class Matrix
     {
-        public static int[,] MatrixMultiply(int[,] a, int[,] b)
+        private int[,] _data;
+        public int Rows { get { return _data.GetLength(0); } }
+        public int Cols { get { return _data.GetLength(1); } }
+
+        public Matrix(int rows, int cols)
         {
-            if (a.GetLength(1) != b.GetLength(0))
+            _data = new int[rows, cols];
+        }
+
+        public Matrix(int rows, int cols, int initializer) : this(rows, cols)
+        {
+            for (int i = 0; i < _data.GetLength(0); i++)
+            {
+                for (int j = 0; j < _data.GetLength(1); j++)
+                {
+                    _data[i, j] = initializer;
+                }
+            }
+        }
+
+        public Matrix(int rows, int cols, IEnumerable initializer) : this(rows, cols)
+        {
+            var iter = initializer.GetEnumerator();
+
+            for (int i = 0; i < _data.GetLength(0); i++)
+            {
+                for (int j = 0; j < _data.GetLength(1); j++)
+                {
+                    iter.MoveNext();
+                    _data[i, j] = Convert.ToInt32(iter.Current);
+                }
+            }
+        }
+
+        public static Matrix operator* (Matrix lhs, Matrix rhs)
+        {
+            Matrix res = new Matrix(lhs.Rows, rhs.Cols);
+            
+            if (lhs.Cols != rhs.Rows)
             {
                 throw new ArgumentException("The number of columns in the first matrix must be equal to the number of rows in the second matrix");
             }
 
-            int[,] res = new int[a.GetLength(0), b.GetLength(1)];
-
-            for (int i = 0; i < res.GetLength(0); i++)
+            for (int i = 0; i < res.Rows; i++)
             {
-                for (int j = 0; j < res.GetLength(1); j++)
+                for (int j = 0; j < res.Cols; j++)
                 {
                     res[i, j] = 0;
-                    for (int k = 0; k < a.GetLength(1); k++)
+                    for (int k = 0; k < lhs.Cols; k++)
                     {
-                        if (a[i, k] < 0)
-                        {
-                            throw new ArgumentException($"Matrix1 contains an invalid entry in cell[{i}, {k}].");
-                        }
-                        if (b[k, j] < 0)
-                        {
-                            throw new ArgumentException($"Matrix2 contains an invalid entry in cell[{k}, {j}].");
-                        }
-
-                        res[i, j] += a[i, k] * b[k, j];
+                        res[i, j] += lhs[i, k] * rhs[k, j];
                     }
                 }
             }
+
             return res;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Matrix other)
+            {
+                if (this.Rows != other.Rows || this.Cols != other.Cols) return false;
+
+                for (int i = 0; i < this.Rows; i++)
+                {
+                    for (int j = 0; j < this.Cols; j++)
+                    {
+                        if (this[i, j] != other[i, j]) return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        // TODO: реализовать GetHashCode()??
+
+        public int this[int i, int j]
+        {
+            get => _data[i, j];
+            set => _data[i, j] = value;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return _data.GetEnumerator();
         }
     }
 }
