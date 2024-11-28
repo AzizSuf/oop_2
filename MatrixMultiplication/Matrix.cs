@@ -55,6 +55,15 @@ namespace MatrixMultiplication
                     res[i, j] = 0;
                     for (int k = 0; k < lhs.Cols; k++)
                     {
+                        if (lhs[i, k] < 0)
+                        {
+                            throw new ArgumentException($"Matrix1 contains an invalid entry in cell[{i}, {k}].");
+                        }
+                        if (rhs[k, j] < 0)
+                        {
+                            throw new ArgumentException($"Matrix2 contains an invalid entry in cell[{k}, {j}].");
+                        }
+
                         res[i, j] += lhs[i, k] * rhs[k, j];
                     }
                 }

@@ -54,7 +54,7 @@ namespace GCDTests
         }
 
         [TestMethod]
-        public void FindGCDEuclid_With4Parameters_BigNums_Test()
+        public void FindGCDEuclid_With2Parameters_BigNums_Test()
         {
             int result = GCDAlgorithms.FindGCDEuclid(1073741824, 1073741800);
             int expected = 8;

@@ -1,4 +1,4 @@
-﻿#define USE_FAST_EUCLID
+﻿//#define USE_FAST_EUCLID
 
 using System;
 
